@@ -1,0 +1,12 @@
+packages:
+  - "apps/*"
+  - "packages/*"
+  - "services/*"
+allowBuilds:
+  '@scarf/scarf': false
+  cpu-features: false
+  esbuild: false
+  msw: true
+  protobufjs: false
+  ssh2: false
+  unrs-resolver: false
