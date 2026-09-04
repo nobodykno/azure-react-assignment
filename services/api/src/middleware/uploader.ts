@@ -1,4 +1,4 @@
-import path from 'path';
+
 
 import busboy from 'busboy';
 
@@ -43,7 +43,7 @@ const uploadedFiles: any[] = [];
       return;
     }
 
-    console.log("moidd")
+
 
     uploads.push(
       uploadToBlobStorage(

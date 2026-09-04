@@ -1,7 +1,7 @@
 
 import { AppError } from '../middleware/app-error.js';
 
-import repository from 'azure-db/repositories';
+
 
 import type {
   IUploadFileRequestDto,
@@ -42,14 +42,53 @@ export const uploadFilesService = async (
   // }));
 
   // const createdFiles = await repository.fileRepository.createFile(files);
+  const processedFiles = [];
 
+  for (const file of request.uploadedFiles) {
+    const processingResult = await processDocument(
+      file.blobName,
+    );
 
+    processedFiles.push({
+      blobName: file.blobName,
+      originalName: file.originalName,
+      mimeType: file.mimeType,
+      processing: processingResult,
+    });
+  }
 
-
-  const response: IUploadFileResponseDto = {
-    message: "File upload success",
+  return {
+    message: 'File upload success',
+    files: processedFiles,
   };
 
-  return response;
+
 };
 
+export const processDocument = async (
+  blobName: string,
+) => {
+  const functionUrl = process.env.AZURE_FUNCTION_URL;
+
+  if (!functionUrl) {
+    throw new Error('AZURE_FUNCTION_URL is not configured');
+  }
+
+  const response = await fetch(functionUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      blobName,
+    }),
+  });
+
+  // if (!response.ok) {
+  //   throw new Error(
+  //     `Function request failed: ${response.status}`,
+  //   );
+  // }
+
+  return response.json();
+};

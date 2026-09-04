@@ -17,6 +17,23 @@
     "sequelize": "^6.37.8",
     "zod": "^4.4.3"
   },
+
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+
+    "./config": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/config/index.js"
+    },
+
+    "./azure-storage": {
+      "types": "./dist/config/azure-service.d.ts",
+      "import": "./dist/config/azure-service.js"
+    }
+  },
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "build": "tsc",
