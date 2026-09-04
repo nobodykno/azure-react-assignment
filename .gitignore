@@ -29,7 +29,7 @@ yarn-error.log*
 Thumbs.db
 
 # IDE
-.vscode/
+
 .idea/
 
 # Turbo

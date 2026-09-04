@@ -1,6 +1,7 @@
 import { randomUUID } from 'node:crypto';
 import type { Readable } from 'node:stream';
-import { blobContainerClient } from '../config/azure-service.js';
+import azureMethods from '../config/azure-service.js';
+
 
 
 
@@ -15,7 +16,7 @@ export const uploadToBlobStorage = async (
   originalName: string,
   mimeType: string,
 ): Promise<BlobUploadResult> => {
-  await blobContainerClient.createIfNotExists();
+  await azureMethods.blobContainerClient.createIfNotExists();
 
   const extension = originalName.includes('.')
     ? originalName.substring(originalName.lastIndexOf('.'))
@@ -24,7 +25,7 @@ export const uploadToBlobStorage = async (
   const blobName = `${randomUUID()}${extension}`;
 
   const blockBlobClient =
-    blobContainerClient.getBlockBlobClient(blobName);
+  azureMethods.blobContainerClient.getBlockBlobClient(blobName);
 
   await blockBlobClient.uploadStream(
     stream,

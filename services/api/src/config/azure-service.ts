@@ -8,11 +8,18 @@ if (!connectionString) {
   );
 }
 
-export const blobServiceClient =
+ const blobServiceClient =
   BlobServiceClient.fromConnectionString(connectionString);
 
-export const blobContainerName =
+ const blobContainerName =
   process.env.AZURE_STORAGE_CONTAINER_NAME ?? 'clinical-report';
 
-export const blobContainerClient =
+ const blobContainerClient =
   blobServiceClient.getContainerClient(blobContainerName);
+
+  const azureMethods = {
+    blobContainerClient,
+    blobServiceClient,
+  }
+
+  export default azureMethods;
