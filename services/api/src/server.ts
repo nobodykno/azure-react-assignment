@@ -11,6 +11,13 @@ const connectDatabase = async (): Promise<void> => {
   const maxRetries = 5;
   const retryDelay = 5000;
 
+
+  console.log({
+    DB_HOST: process.env.DB_HOST,
+    DB_PORT: process.env.DB_PORT,
+    DB_NAME: process.env.DB_NAME,
+    DB_USER: process.env.DB_USER,
+  });
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
       await sequelize.sequelize.authenticate();

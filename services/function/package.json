@@ -13,12 +13,13 @@
   },
   "dependencies": {
     "@azure/functions": "^4.0.0",
-    "azure_api": "workspace:*"
+    "azure_api": "workspace:*",
+    "openai": "^7.10.0"
   },
   "devDependencies": {
     "@types/node": "^20.x",
-    "typescript": "^6.0.0",
-    "rimraf": "^5.0.0"
+    "rimraf": "^5.0.0",
+    "typescript": "^6.0.0"
   },
   "main": "dist/src/{index.js,functions/*.js}"
 }

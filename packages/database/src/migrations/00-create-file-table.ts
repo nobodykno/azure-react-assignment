@@ -29,6 +29,16 @@ export const up = async ({
         allowNull: true,
       },
 
+      measure: {
+        type: DataTypes.STRING(355),
+        allowNull: true,
+      },
+
+      measure_Date :{
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW,
+      },
+
       path: {
         type: DataTypes.STRING(355),
         allowNull: true,

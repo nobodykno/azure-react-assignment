@@ -6,6 +6,7 @@ import {
   } from '@azure/functions';
   
   import { downloadDocument } from '../services/blob-storage.js';
+import { analyzeDocument } from '../services/openAI.js';
 
   
   interface ProcessDocumentRequest {
@@ -34,6 +35,13 @@ import {
       context.log(`Reading blob: ${blobName}`);
   
       const document = await downloadDocument(blobName);
+
+      const result = await analyzeDocument(
+        document,
+        blobName,
+      );
+      
+      context.log('AI result:', result);
   
       context.log(`Downloaded ${document.length} bytes`);
   
@@ -42,7 +50,7 @@ import {
         jsonBody: {
           success: true,
           blobName,
-          size: document.length,
+          result,
         },
       };
     } catch (error) {
