@@ -14,6 +14,8 @@ class File extends Model<IFileAttributes, IFileCreationAttributes> implements IF
   declare process_by: string;
   declare processing_date: Date;
   declare type: string;
+  declare measure: string;
+  declare measure_Date: string;
   declare path: string;
 }
 
@@ -23,7 +25,7 @@ File.init(
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
-    },
+  },
 
     type: {
       type: DataTypes.STRING(255),
@@ -31,6 +33,16 @@ File.init(
     },
 
     processing_date: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
+    },
+
+    measure: {
+      type: DataTypes.STRING(355),
+      allowNull: true,
+    },
+
+    measure_Date :{
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
     },
