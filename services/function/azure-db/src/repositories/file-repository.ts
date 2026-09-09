@@ -37,11 +37,7 @@ const updateFilePath = (fileId: number, path: string) =>
    */
 
 const findFileByPrimaryKey = (fileId: number) => {
-  return model.File.findOne({
-    where:{
-      id:fileId
-    }
-  });
+  return model.File.findByPk(fileId);
 };
 
 

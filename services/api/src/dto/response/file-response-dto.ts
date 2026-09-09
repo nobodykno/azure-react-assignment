@@ -10,3 +10,6 @@ export interface IFileDto {
   path: string;
 }
 
+export interface IFileResponse {
+  message: string;
+}

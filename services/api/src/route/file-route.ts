@@ -1,4 +1,4 @@
-import { Router, raw } from 'express';
+import { Router } from 'express';
 
 import controller from '../controller/index.js';
 
@@ -15,6 +15,10 @@ router.post(
   '/', 
   uploadMiddleware, 
   controller.FileController.uploadFiles);
+
+  router.get(
+    '/:fileId',  
+    controller.FileController.retryFiles);
 
   export default router;
 

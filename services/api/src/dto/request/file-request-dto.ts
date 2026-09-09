@@ -1,3 +1,4 @@
+import { ParamsDictionary } from "express-serve-static-core";
 
 
 /**
@@ -30,3 +31,12 @@ export interface IUploadedFile {
   mimeType: string;
 }
 
+
+
+export interface IFileParams extends ParamsDictionary {
+  fileId: string;
+}
+
+export interface IFileRetry  {
+  fileId: number;
+}
