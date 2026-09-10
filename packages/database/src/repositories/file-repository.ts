@@ -44,6 +44,16 @@ const findFileByPrimaryKey = (fileId: number) => {
   });
 };
 
+  /**
+   * 
+   * @param fileId accepts fileId 
+   * @returns JSON containing  file details
+   */
+
+  const getFiles = () => {
+    return model.File.findAll()
+  };
+
 
 
 
@@ -54,6 +64,7 @@ const findFileByPrimaryKey = (fileId: number) => {
 const fileRepository = {
   createFile,
   updateFilePath,
+  getFiles,
   findFileByPrimaryKey,
 };
 

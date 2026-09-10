@@ -27,7 +27,6 @@ const validate =
 
       if (!result.success) {
 
-
         return next(
           new AppError(result.error.issues.map((issue) => issue.message).join(', '), 400),
         );

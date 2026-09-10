@@ -11,7 +11,7 @@ import type {
 } from '../dto/request/file-request-dto.js';
 
 import type { NextFunction, Request, Response } from 'express';
-import { IFileResponse } from '../dto/response/file-response-dto.js';
+import { IFileResponse, IGetFileResponse } from '../dto/response/file-response-dto.js';
 
 
 /**
@@ -66,6 +66,29 @@ export const retryFiles = async (
     };
 
     const response = await service.file.retryFile(request);
+
+    return res.status(200).json(response);
+  } catch (error) {
+    next(error);
+  }
+};
+
+
+
+ /**
+ * @param req - accepts the request matching to the request dto.
+ * @param res - returning  response of file  details matching with response dto
+ * @param next - Express next middleware function.
+ * @returns JSON response containing uploaded file information.
+ */
+
+ export const getFiles = async (
+  req: Request,
+  res: Response<IGetFileResponse>,
+  next: NextFunction,
+) => {
+  try {
+    const response = await service.file.getFiles();
 
     return res.status(200).json(response);
   } catch (error) {

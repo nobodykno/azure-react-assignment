@@ -12,7 +12,7 @@ import globalErrorHandler from './middleware/global-error.js';
 
 const app: Express = express();
 
-app.use(cors(corsOptions));
+app.use(cors());
 
 app.use(express.json());
 

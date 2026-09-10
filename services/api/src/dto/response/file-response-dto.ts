@@ -13,3 +13,31 @@ export interface IFileDto {
 export interface IFileResponse {
   message: string;
 }
+
+
+
+export interface IGetFileResponse {
+  data: IFile[];
+}
+
+export interface IFile {
+  id: number;
+  path: string;
+  type: string;
+  processing_date: Date | null;
+  process_by: string | null;
+
+  bp_measure: string | null;
+  bp_measure_date: Date | null;
+
+  a1c_measure: string | null;
+  a1c_measure_date: Date | null;
+
+  status: string;
+}
+
+export type ProcessingStatus =
+  | 'Processing'
+  | 'Success'
+  | 'Needs Review'
+  | 'Failed';

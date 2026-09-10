@@ -17,6 +17,10 @@ router.post(
   controller.FileController.uploadFiles);
 
   router.get(
+    '/',  
+    controller.FileController.getFiles);
+
+  router.get(
     '/:fileId',  
     controller.FileController.retryFiles);
 

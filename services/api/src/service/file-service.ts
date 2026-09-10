@@ -9,7 +9,7 @@ import type {
   IUploadFileResponseDto,
 } from '../dto/request/file-request-dto.js';
 import repository from 'azure-db/repositories';
-import { IFileResponse } from '../dto/response/file-response-dto.js';
+import { IFileResponse, IGetFileResponse } from '../dto/response/file-response-dto.js';
 import model from 'azure-db/models';
 
 
@@ -122,6 +122,20 @@ export const retryFile = async (
  };
 
 
+};
+
+
+/**
+ * Get all processed files.
+ *
+ * @returns List of files with their processing results.
+ */
+export const getFiles = async (): Promise<IGetFileResponse> => {
+  const files = await repository.fileRepository.getFiles();
+
+  return {
+    data: files
+  };
 };
 
 export const processDocument = async (

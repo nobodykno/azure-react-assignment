@@ -13,14 +13,14 @@ import path from "node:path";
 
 
 const environment = process.env.NODE_ENV || "development";
+if (environment !== 'production') {
+  dotenv.config({
+    path: `../../.env.${environment}`,
+  });
+}
 
-dotenv.config({
-  path: path.resolve(process.cwd(), "../../.env." + environment),
-});
 
-
-
-const requiredEnv = ['PORT', 'DB_HOST', 'DB_NAME', 'DB_USER', 'DB_PASSWORD', 'JWT_SECRET'];
+const requiredEnv = ['DB_HOST', 'DB_NAME', 'DB_USER', 'DB_PASSWORD'];
 
 requiredEnv.forEach((key) => {
   if (!process.env[key]) {
