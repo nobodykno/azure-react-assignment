@@ -1,0 +1,81 @@
+# ============================
+# Build React
+# ============================
+
+FROM node:22-alpine AS web-builder
+
+WORKDIR /app
+
+ENV CI=true
+
+RUN corepack enable
+RUN corepack prepare pnpm@11.20.0 --activate
+
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY tsconfig.base.json ./
+
+COPY apps/web/package.json ./apps/web/package.json
+
+RUN pnpm install --frozen-lockfile
+
+COPY apps/web ./apps/web
+
+WORKDIR /app/apps/web
+
+RUN pnpm build
+
+
+# ============================
+# Build API + Database package
+# ============================
+
+FROM node:22-alpine AS api-builder
+
+WORKDIR /app
+
+ENV CI=true
+
+RUN corepack enable
+RUN corepack prepare pnpm@11.20.0 --activate
+
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY tsconfig.base.json ./
+
+COPY apps ./apps
+COPY packages ./packages
+COPY services/api ./services/api
+
+RUN pnpm install --frozen-lockfile
+
+RUN pnpm --filter azure-db build
+RUN pnpm --filter azure_api build
+
+
+# ============================
+# Production
+# ============================
+
+FROM node:22-alpine
+
+WORKDIR /app
+
+RUN apk add --no-cache nginx
+
+# API dependencies
+COPY --from=api-builder /app/node_modules ./node_modules
+
+# Database package
+COPY --from=api-builder /app/packages ./packages
+
+# API
+COPY --from=api-builder /app/services/api ./services/api
+
+# React
+COPY --from=web-builder /app/apps/web/dist /usr/share/nginx/html
+
+# Nginx configuration
+COPY apps/web/nginx.azure.conf /etc/nginx/http.d/default.conf
+
+EXPOSE 80
+
+CMD ["sh", "-c", "node /app/services/api/dist/server.js & nginx -g 'daemon off;'"]

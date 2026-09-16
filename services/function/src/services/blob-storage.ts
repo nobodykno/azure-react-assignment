@@ -1,4 +1,5 @@
-import azureMethods from 'azure_api/azure-storage'
+import azureMethods from "./azure-service.js";
+
  
 export const downloadDocument = async (
   blobName: string,

@@ -11,13 +11,6 @@ const connectDatabase = async (): Promise<void> => {
   const maxRetries = 5;
   const retryDelay = 5000;
 
-
-  console.log({
-    DB_HOST: process.env.DB_HOST,
-    DB_PORT: process.env.DB_PORT,
-    DB_NAME: process.env.DB_NAME,
-    DB_USER: process.env.DB_USER,
-  });
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
       await sequelize.sequelize.authenticate();
@@ -40,6 +33,8 @@ const startServer = async (): Promise<void> => {
 
     // 2. Connect to database
     await connectDatabase();
+
+    console.log('Database connected successfully');
 
      app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);
