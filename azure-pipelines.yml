@@ -35,3 +35,10 @@ steps:
       buildContext: '.'
       tags: |
         latest
+
+  - task: AzureWebAppContainer@1
+    displayName: 'Deploy to Azure Web App'
+    inputs:
+      azureSubscription: 'clinical-report-azure'
+      appName: 'clinical-web-app'
+      containers: 'clinicalreport.azurecr.io/clinical-web-app:latest'
