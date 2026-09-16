@@ -1,0 +1,22 @@
+trigger:
+  - main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+  - task: NodeTool@0
+    displayName: 'Install Node.js'
+    inputs:
+      versionSpec: '22.x'
+
+  - script: |
+      corepack enable
+      corepack prepare pnpm@11.20.0 --activate
+    displayName: 'Install pnpm'
+
+  - script: pnpm install --frozen-lockfile
+    displayName: 'Install dependencies'
+
+  - script: pnpm -r run build
+    displayName: 'Build all workspaces'
