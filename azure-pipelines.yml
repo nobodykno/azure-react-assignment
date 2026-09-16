@@ -5,10 +5,10 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-  - task: NodeTool@0
+  - task: UseNode@1
     displayName: 'Install Node.js'
     inputs:
-      versionSpec: '22.x'
+      version: '22.x'
 
   - script: |
       corepack enable
@@ -17,6 +17,13 @@ steps:
 
   - script: pnpm install --frozen-lockfile
     displayName: 'Install dependencies'
+
+  - script: |
+      pnpm --version
+      node --version
+      pnpm --filter function why sequelize
+      ls -la services/function/azure-db/node_modules/sequelize
+    displayName: 'Verify Function dependencies'
 
   - script: pnpm -r run build
     displayName: 'Build all workspaces'
