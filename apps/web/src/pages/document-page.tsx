@@ -119,7 +119,7 @@ export default function ProcessedDocuments() {
         </h1>
 
         <p className="documents-description">
-          View clinical documents and its measurements.
+          View clinical files and its measurements.
         </p>
       </div>
 
